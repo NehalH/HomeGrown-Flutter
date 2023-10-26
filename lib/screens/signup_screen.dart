@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homegrown_flutter/utilities/constants.dart';
-import 'signup_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+import 'login_screen.dart';
+
+class SignupScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   bool _rememberMe = false;
 
   Widget _buildEmailTF() {
@@ -89,21 +90,158 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () {
-          print('Forgot Password Button Pressed');
-        },
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.only(right: 0.0),
-        ),
-        child: Text(
-          'Forgot Password?',
+  Widget _buildNameTF() {
+    String value = '';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Name',
           style: kLabelStyle,
         ),
-      ),
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            obscureText: true,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            onChanged: (input) {
+              value = input;
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Name',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhoneTF() {
+    String value = '';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Phone',
+          style: kLabelStyle,
+        ),
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            obscureText: true,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            onChanged: (input) {
+              value = input;
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
+                Icons.phone,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Phone number',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildConfirmPasswordTF() {
+    String value = '';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Confirm Password',
+          style: kLabelStyle,
+        ),
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            obscureText: true,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            onChanged: (input) {
+              value = input;
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Re-enter your Password',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAddressTF() {
+    String value = '';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Address',
+          style: kLabelStyle,
+        ),
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            onChanged: (input) {
+              value = input;
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
+                Icons.location_on, // You can change this to an appropriate icon
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Address',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -134,13 +272,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLoginBtn() {
+  Widget _buildSignupBtn() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          print('Login Button Pressed');
+          print('Signup Button Pressed');
         },
         style: ElevatedButton.styleFrom(
           elevation: 5.0,
@@ -151,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
           primary: Colors.white,
         ),
         child: const Text(
-          'LOGIN',
+          'SIGNUP',
           style: TextStyle(
             color: Color(0xFF527DAA),
             letterSpacing: 1.5,
@@ -220,20 +358,20 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSignupBtn() {
+  Widget _buildLoginBtn() {
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SignupScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
         );
       },
       child: RichText(
         text: const TextSpan(
           children: [
             TextSpan(
-              text: 'Don\'t have an Account? ',
+              text: 'Already have an Account? ',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -241,7 +379,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             TextSpan(
-              text: 'Sign Up',
+              text: 'Login',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -292,7 +430,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       const Text(
-                        'Sign In',
+                        'Sign Up',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'OpenSans',
@@ -303,15 +441,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 30.0),
                       _buildEmailTF(),
                       const SizedBox(
-                        height: 30.0,
+                        height: 10.0,
                       ),
                       _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildConfirmPasswordTF(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
                       _buildRememberMeCheckbox(),
-                      this._buildLoginBtn(),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      _buildNameTF(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildPhoneTF(),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildAddressTF(),
+
+
+                      this._buildSignupBtn(),
                       _buildSignInWithText(),
                       _buildSocialBtnRow(),
-                      this._buildSignupBtn(),
+                      this._buildLoginBtn(),
                     ],
                   ),
                 ),

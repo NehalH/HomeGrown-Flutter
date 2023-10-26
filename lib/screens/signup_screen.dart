@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:homegrown_flutter/utilities/constants.dart';
 
 import 'login_screen.dart';
+import 'package:homegrown_flutter/domain/validation/validate.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -11,9 +12,14 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool _rememberMe = false;
+  String email = '';
+  String password = '';
+  String reEnteredPassword = '';
+  String name = '';
+  String phone = '';
+  String address = '';
 
   Widget _buildEmailTF() {
-    String value = '';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -33,7 +39,7 @@ class _SignupScreenState extends State<SignupScreen> {
               fontFamily: 'OpenSans',
             ),
             onChanged: (input) {
-              value = input;
+              email = input;
             },
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -52,7 +58,6 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget _buildPasswordTF() {
-    String value = '';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -72,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
               fontFamily: 'OpenSans',
             ),
             onChanged: (input) {
-              value = input;
+              password = input;
             },
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -82,84 +87,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 color: Colors.white,
               ),
               hintText: 'Enter your Password',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildNameTF() {
-    String value = '';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Name',
-          style: kLabelStyle,
-        ),
-        const SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            obscureText: true,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            onChanged: (input) {
-              value = input;
-            },
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.only(top: 14.0),
-              prefixIcon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Name',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPhoneTF() {
-    String value = '';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Phone',
-          style: kLabelStyle,
-        ),
-        const SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            obscureText: true,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            onChanged: (input) {
-              value = input;
-            },
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.only(top: 14.0),
-              prefixIcon: const Icon(
-                Icons.phone,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Phone number',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -189,7 +116,7 @@ class _SignupScreenState extends State<SignupScreen> {
               fontFamily: 'OpenSans',
             ),
             onChanged: (input) {
-              value = input;
+              reEnteredPassword = input;
             },
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -207,8 +134,83 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  Widget _buildNameTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Name',
+          style: kLabelStyle,
+        ),
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            obscureText: true,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            onChanged: (input) {
+              name = input;
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Name',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhoneTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Phone',
+          style: kLabelStyle,
+        ),
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            obscureText: true,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            onChanged: (input) {
+              phone = input;
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
+                Icons.phone,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Phone number',
+              hintStyle: kHintTextStyle,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildAddressTF() {
-    String value = '';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -227,7 +229,7 @@ class _SignupScreenState extends State<SignupScreen> {
               fontFamily: 'OpenSans',
             ),
             onChanged: (input) {
-              value = input;
+              address = input;
             },
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -278,7 +280,7 @@ class _SignupScreenState extends State<SignupScreen> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          print('Signup Button Pressed');
+          Validate.validate(email, password, reEnteredPassword, phone, name, address);
         },
         style: ElevatedButton.styleFrom(
           elevation: 5.0,
@@ -315,7 +317,7 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
         const SizedBox(height: 20.0),
         Text(
-          'Sign in with',
+          'Sign up with',
           style: kLabelStyle,
         ),
       ],
